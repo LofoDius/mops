@@ -44,7 +44,7 @@
 
       <vl-overlay v-for="classroom in classroomsToShow" :position="classroom.coords" :key="classroom.name">
         <template>
-          <div v-show="zoom >= 3" :key="'class' + classroom.name"
+          <div v-show="zoom >= 2.75" :key="'class' + classroom.name"
                :class="{'highlight-classroom': highlightClasses.includes(classroom.name),
                'classroom-number': true}">
             {{ classroom.name }}
