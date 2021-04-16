@@ -418,7 +418,8 @@ export default {
 
         }
         case 'secondBuilding': {
-          return this.secondBuildingClassrooms.filter(classroom => this.highlightClasses.includes(classroom.name))
+          return this.secondBuildingClassrooms.filter(classroom =>
+              this.highlightClasses.includes(classroom.name) && classroom.floor === floor)
               .length !== 0;
 
         }
