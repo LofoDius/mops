@@ -44,7 +44,7 @@
 
       <vl-overlay v-for="classroom in classroomsToShow" :position="classroom.coords" :key="classroom.name">
         <template>
-          <div v-show="zoom >= 4" :key="'class' + classroom.name"
+          <div v-show="zoom >= 3.25" :key="'class' + classroom.name"
                :class="{'highlight-classroom': highlightClasses.includes(classroom.name),
                'classroom-number': true}">
             {{ classroom.name }}
@@ -120,8 +120,8 @@ export default {
       selectedFloor: 2,
       classroomsToShow: [],
       // VueLayers Settings
-      zoom: 4,
-      maxZoom: 4,
+      zoom: 3,
+      maxZoom: 5,
       center: [2500, 1200],
       rotation: 0,
       projection: customProj.getCode(),
@@ -475,7 +475,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 0 5px 10px;
 
   color: white;
 
@@ -491,9 +491,9 @@ body {
 
 .popup-button {
   border: none;
-  font-size: 1em;
-  padding: 10px;
-  margin: 10px;
+  font-size: 14px;
+  padding: 5px;
+  margin: 0 10px;
   border-radius: 5pt;
 }
 
