@@ -377,6 +377,7 @@ export default {
 
   created() {
     window.setHighlightedClasses = this.setHighlightedClasses;
+    window.findClass = this.findClass;
   },
 
   methods: {
@@ -386,6 +387,39 @@ export default {
 
     selectFloor(targetFloor) {
       this.selectedFloor = targetFloor;
+    },
+
+    findClass(className) {
+      let firstBuildingCheck = this.firstBuildingClassrooms.filter(c => c.name === className);
+      let secondBuildingCheck = this.secondBuildingClassrooms.filter(c => c.name === className);
+      if (firstBuildingCheck.length === 1) {
+        this.selectedFeatures = [];
+        this.selectedFloor = firstBuildingCheck[0].floor;
+        this.center = firstBuildingCheck[0].coords;
+        this.selectedFeatures.push({
+          geometry: {
+            coordinates: [this.polygons[0]],
+            type: "Polygon"
+          },
+          id: 'firstBuilding',
+          properties: null,
+          type: "Feature"
+        });
+      } else if (secondBuildingCheck.length === 1) {
+        this.selectedFeatures = [];
+        this.selectedFloor = secondBuildingCheck[0].floor;
+        this.center = secondBuildingCheck[0].coords;
+        this.selectedFeatures.push({
+          geometry: {
+            coordinates: [this.polygons[1]],
+            type: "Polygon"
+          },
+          id: 'secondBuilding',
+          properties: null,
+          type: "Feature"
+        });
+      } else return false
+      return true
     },
 
     updateClassroomsToShow() {
