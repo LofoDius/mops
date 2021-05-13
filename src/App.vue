@@ -394,30 +394,30 @@ export default {
       let secondBuildingCheck = this.secondBuildingClassrooms.filter(c => c.name === className);
       if (firstBuildingCheck.length === 1) {
         this.selectedFeatures = [];
-        this.selectedFloor = firstBuildingCheck[0].floor;
-        this.center = firstBuildingCheck[0].coords;
         this.selectedFeatures.push({
           geometry: {
             coordinates: [this.polygons[0]],
             type: "Polygon"
           },
           id: 'firstBuilding',
-          properties: null,
+          properties: {find: true},
           type: "Feature"
         });
+        this.center = firstBuildingCheck[0].coords;
+        this.selectedFloor = firstBuildingCheck[0].floor;
       } else if (secondBuildingCheck.length === 1) {
         this.selectedFeatures = [];
-        this.selectedFloor = secondBuildingCheck[0].floor;
-        this.center = secondBuildingCheck[0].coords;
         this.selectedFeatures.push({
           geometry: {
             coordinates: [this.polygons[1]],
             type: "Polygon"
           },
           id: 'secondBuilding',
-          properties: null,
+          properties: {find: true},
           type: "Feature"
         });
+        this.center = secondBuildingCheck[0].coords;
+        this.selectedFloor = secondBuildingCheck[0].floor;
       } else return false
       return true
     },
@@ -464,12 +464,15 @@ export default {
   },
 
   watch: {
-    selectedFeatures() {
-      this.selectedFloor = 2;
+    selectedFeatures(newFeatures) {
       if (this.selectedFeatures.length === 0) {
         this.classroomsToShow = [];
         return;
       }
+
+      if (newFeatures[0].properties === null)
+        this.selectedFloor = 2;
+
       this.updateClassroomsToShow();
     },
 
